@@ -1,19 +1,151 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Welcome to Spin the Wheel</title>
-    <meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Name Spinner Wheel</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #1a1a1a;
+        }
+        textarea {
+            width: 90%;
+            max-width: 500px;
+            height: 150px;
+            padding: 15px;
+            font-size: 18px;
+            margin: 15px 0;
+        }
+        button {
+            padding: 12px 25px;
+            margin: 10px 5px;
+            font-size: 18px;
+            cursor: pointer;
+            background: #0066ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+        button:hover {
+            background: #0052cc;
+        }
+        .wheel-container {
+            margin: 30px auto;
+            position: relative;
+            width: 320px;
+            height: 320px;
+        }
+        #wheel {
+            width: 320px;
+            height: 320px;
+            border: 18px solid #222;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.4);
+            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+            z-index: 10;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #d00;
+            min-height: 50px;
+        }
     </style>
-    <link rel="stylesheet" href="src/styles.css" />
-  </head>
+</head>
+<body>
+    <h1>🎡 Free Random Name Spinner</h1>
+    <p>Add one name per line:</p>
+    <textarea id="input" placeholder="Enter names here..."></textarea><br>
+    
+    <button onclick="addExample()">Load Example Names</button>
+    <button onclick="spinWheel()">SPIN</button>
+    <button onclick="clearAll()">Clear</button>
 
-  <body>
-    <div id="spin_the_wheel">
-      <canvas id="wheel" width="800" height="800"></canvas>
-      <div id="spin">SPIN</div>
+    <div class="wheel-container">
+        <div id="wheel"></div>
+        <div class="pointer">▼</div>
     </div>
-    <script defer src="src/index.js"></script>
-  </body>
+
+    <div id="result"></div>
+
+    <script>
+        let isSpinning = false;
+
+        function createWheel(names) {
+            const wheel = document.getElementById('wheel');
+            let html = '';
+            const colors = ['#ff4757', '#2ed573', '#1e90ff', '#ffa502', '#3742fa', '#ff6348', '#00d2d3'];
+            
+            names.forEach((name, i) => {
+                const color = colors[i % colors.length];
+                html += `<div style="position:absolute; width:100%; height:100%; background:${color}; clip-path: polygon(50% 50%, 0% 0%, 100% 0%); transform:rotate(${i * (360/names.length)}deg);"></div>`;
+            });
+            wheel.innerHTML = html;
+        }
+
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            let text = document.getElementById('input').value.trim();
+            if (!text) {
+                alert("Please enter some names!");
+                return;
+            }
+            
+            let names = text.split('\n').map(n => n.trim()).filter(n => n !== '');
+            if (names.length < 2) {
+                alert("Please enter at least 2 names!");
+                return;
+            }
+
+            isSpinning = true;
+            document.getElementById('result').innerHTML = "";
+
+            createWheel(names);
+
+            const wheel = document.getElementById('wheel');
+            const spins = 8 + Math.random() * 5;
+            const randomDegree = Math.floor(Math.random() * 360);
+            const totalSpin = spins * 360 + randomDegree;
+
+            wheel.style.transition = 'none';
+            wheel.style.transform = 'rotate(0deg)';
+
+            setTimeout(() => {
+                wheel.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                wheel.style.transform = `rotate(${totalSpin}deg)`;
+            }, 50);
+
+            setTimeout(() => {
+                const winnerIndex = Math.floor(Math.random() * names.length);
+                document.getElementById('result').innerHTML = `🎉 Winner: <strong>${names[winnerIndex]}</strong>`;
+                isSpinning = false;
+            }, 5200);
+        }
+
+        function addExample() {
+            document.getElementById('input').value = "Alice\nBob\nCharlie\nDavid\nEmma\nFrank\nGrace\nHenry";
+        }
+
+        function clearAll() {
+            document.getElementById('input').value = "";
+            document.getElementById('result').innerHTML = "";
+        }
+    </script>
+</body>
 </html>
