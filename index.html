@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Name Spinner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎡 Free Name Spinner</h1>
+        <p>Add names (one per line):</p>
+        
+        <textarea id="names" rows="8" placeholder="Enter names here..."></textarea>
+        
+        <div class="controls">
+            <button onclick="addExample()">Add Example Names</button>
+            <button onclick="spinWheel()">SPIN</button>
+            <button onclick="clearAll()">Clear All</button>
+        </div>
+
+        <div class="wheel-container">
+            <div id="wheel" class="wheel">
+                <div id="pointer" class="pointer">▼</div>
+            </div>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
