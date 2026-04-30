@@ -1,67 +1,61 @@
 body {
     font-family: Arial, sans-serif;
-    background: #f0f0f0;
+    background: #f4f4f4;
     margin: 0;
     padding: 20px;
-    text-align: center;
 }
 
 .container {
     max-width: 600px;
     margin: 0 auto;
+    text-align: center;
 }
 
 h1 {
-    color: #333;
+    color: #222;
 }
 
 textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     margin: 10px 0;
 }
 
-.controls button {
-    padding: 10px 15px;
-    margin: 5px;
+.buttons button {
+    padding: 12px 20px;
+    margin: 8px 5px;
     font-size: 16px;
     cursor: pointer;
 }
 
-.wheel-container {
-    margin: 30px auto;
+.wheel-wrapper {
     position: relative;
     width: 300px;
     height: 300px;
+    margin: 30px auto;
 }
 
-.wheel {
-    width: 300px;
-    height: 300px;
-    border: 15px solid #333;
+#wheel {
+    border: 12px solid #222;
     border-radius: 50%;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-    background: conic-gradient(#ff0000 0deg, #ff0000 30deg, #00ff00 30deg, #00ff00 60deg, #0000ff 60deg, #0000ff 90deg, #ffff00 90deg, #ffff00 120deg, #ff00ff 120deg, #ff00ff 150deg, #00ffff 150deg, #00ffff 180deg, #ff9900 180deg, #ff9900 210deg, #9900ff 210deg, #9900ff 240deg, #ff0000 240deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .pointer {
     position: absolute;
-    top: -10px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 40px;
+    font-size: 50px;
+    color: #d00;
     z-index: 10;
-    color: #333;
 }
 
 .result {
     margin-top: 20px;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
-    min-height: 40px;
     color: #d00;
+    min-height: 50px;
 }
